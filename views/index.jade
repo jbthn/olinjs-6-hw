@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  h1= title
+  div(id='carousel')
+    each src, i in srcs
+      div(class='row-fluid')
+        div(class='span12')
+          img(src=src, class='by-height')
+          br
+          div(class='row-fluid')
+            div(class='span12')
+              br
+              form(class='newCap', id=ids[i])
+                | Comment: 
+                textarea(rows='1', cols='30', name='cap')
+                br
+                input(type='submit', value='Add Comment', id=ids[i])
+  a#ui-carousel-prev(href='#') prev
+  &nbsp;
+  a#ui-carousel-next(href='#') next
+
+  script(type='text/javascript')
+    jQuery(function($) {
+      $( "#carousel" ).rcarousel( {width: 550, height: 500, visible: 1, step: 1} );
+      });
+    $('.newCap').on('submit', function() {
+      $.post('/comment/' + $(this).prop('id'), $('.newCap').serialize(), function(err) {
+          $
+        });
+      return false;
+      });
